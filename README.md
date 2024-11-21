@@ -3,9 +3,13 @@ The Reward Points System is a Spring Boot-based application designed to manage p
 
 # Features
 **Customer Management**: Add and fetch customer details.
+
 **Product Management**: Add and fetch product details.
+
 **Purchase System**: Manage customer purchases and reward points.
+
 **Reward Points Calculation**: Automated reward points calculation based on purchase value.
+
 **Error Handling**: Comprehensive exception handling for database operations, invalid requests.
 
 # Technologies Used
@@ -208,7 +212,24 @@ Open http://localhost:8080 in your browser or use Postman to interact with the A
 1. **Get Rewards Summary** : http://localhost:8080/api/reward-points/get-summary
 2. **Sample Data Set**
 ```
-//Based on the purchase and customer dependent entries we can make different datasets. Below is just an example
+/*Based on the purchases made by customer we build the data set. The endpoint excepts a List of TransactionRequest objects which consists customerId and purchaseId fields. So if a customer with customerId 2 has three purchases with purchaseId 2,5 and 6 we can provide each combination as a particular request. Eg.
+[
+  {
+    "customerId": "2",
+    "purchaseId": "2"
+  },
+  {
+    "customerId": "2",
+    "purchaseId": "5"
+  },
+  {
+    "customerId": "2",
+    "purchaseId": "6"
+  }
+]
+In the same way we can add other customerId and its corresponding and valid purchaseId as a particular TransactionRequest.
+The result will be a RewardsSummaryResponse which consists of Customer name, Monthly rewards(If there are any purchases/rewards awarded for the particluar month ) and total rewards over the provided 3 months.
+Below is just an example*/
 [
   {
     "customerId": "5",
