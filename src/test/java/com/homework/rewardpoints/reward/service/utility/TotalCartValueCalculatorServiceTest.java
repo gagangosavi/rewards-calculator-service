@@ -1,6 +1,7 @@
 package com.homework.rewardpoints.reward.service.utility;
 
 import com.homework.rewardpoints.reward.model.Product;
+import com.homework.rewardpoints.reward.service.utility.foeachpurchase.TotalCartValueCalculatorService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -14,9 +15,9 @@ public class TotalCartValueCalculatorServiceTest {
     @Test
     void testCalculateTotalCartValue() {
         List<Product> products = Arrays.asList(
-                Product.builder().price(100).build(),
-                Product.builder().price(200).build(),
-                Product.builder().price(50).build()
+                Product.builder().price(100.0).build(),
+                Product.builder().price(200.0).build(),
+                Product.builder().price(50.0).build()
         );
 
         Double totalValue = service.calculateTotalCartValue(products);

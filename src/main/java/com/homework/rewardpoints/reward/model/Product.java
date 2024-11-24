@@ -19,7 +19,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private String productName;
-    private Integer price;
+    private Double price;
 
     @ManyToOne(optional = false)
     @ToString.Exclude

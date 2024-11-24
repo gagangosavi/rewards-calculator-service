@@ -1,5 +1,6 @@
 package com.homework.rewardpoints.reward.service.utility;
 
+import com.homework.rewardpoints.reward.service.utility.foeachpurchase.RewardPointsCalculatorService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

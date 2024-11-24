@@ -1,7 +1,6 @@
 package com.homework.rewardpoints.reward.service;
 
 import com.homework.rewardpoints.reward.dto.request.PurchaseRequest;
-import com.homework.rewardpoints.reward.dto.response.ProductResponse;
 import com.homework.rewardpoints.reward.dto.response.PurchaseResponse;
 import com.homework.rewardpoints.reward.exception.DatabaseOperationException;
 import com.homework.rewardpoints.reward.exception.customer.CustomerNotFoundException;
@@ -12,14 +11,13 @@ import com.homework.rewardpoints.reward.model.RewardPoints;
 import com.homework.rewardpoints.reward.repository.CustomerRepository;
 import com.homework.rewardpoints.reward.repository.ProductRepository;
 import com.homework.rewardpoints.reward.repository.PurchaseRepository;
-import com.homework.rewardpoints.reward.service.utility.RewardPointsCalculatorService;
-import com.homework.rewardpoints.reward.service.utility.TotalCartValueCalculatorService;
+import com.homework.rewardpoints.reward.service.utility.foeachpurchase.RewardPointsCalculatorService;
+import com.homework.rewardpoints.reward.service.utility.foeachpurchase.TotalCartValueCalculatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

@@ -1,4 +1,5 @@
 package com.homework.rewardpoints.reward.service;
+import com.homework.rewardpoints.reward.dto.request.CategoryRequest;
 import com.homework.rewardpoints.reward.dto.request.ProductRequest;
 import com.homework.rewardpoints.reward.dto.response.ProductResponse;
 import com.homework.rewardpoints.reward.exception.DatabaseOperationException;
@@ -40,32 +41,33 @@ public class ProductServiceTest {
     void testAddProduct_validRequest() {
         ProductRequest request = ProductRequest.builder()
                 .productName("Laptop")
-                .price(1000)
-                .category(Category.builder().categoryId(1L).build())
+                .price(1000.0)
+                .categoryRequest(CategoryRequest.builder().categoryName("Electronics").build())
                 .build();
 
         Category category = Category.builder().categoryId(1L).categoryName("Electronics").build();
-        Product savedProduct = Product.builder().productName("Laptop").price(1000).category(category).build();
+        Product savedProduct = Product.builder().productName("Laptop").price(1000.0).category(category).build();
 
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        when(categoryRepository.findByCategoryName("Electronics")).thenReturn(Optional.of(category));
         when(productRepository.save(any(Product.class))).thenReturn(savedProduct);
 
         ProductResponse response = productService.addProduct(request);
 
         assertEquals("Laptop", response.getProductName());
         assertEquals(1000, response.getPrice());
-        verify(categoryRepository, times(1)).findById(1L);
+        verify(categoryRepository, times(1)).findByCategoryName("Electronics");
         verify(productRepository, times(1)).save(any(Product.class));
     }
 
     @Test
     void testAddProduct_invalidPrice() {
         Category category = Category.builder().categoryId(1L).categoryName("Electronics").build();
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        CategoryRequest categoryRequest = CategoryRequest.builder().categoryName("Electronics").build();
+        when(categoryRepository.findByCategoryName("Electronics")).thenReturn(Optional.of(category));
         ProductRequest request = ProductRequest.builder()
                 .productName("Laptop")
-                .price(-100)
-                .category(category)
+                .price(-100.0)
+                .categoryRequest(categoryRequest)
                 .build();
 
         assertThrows(InvalidProductRequestException.class, () -> productService.addProduct(request));
@@ -76,14 +78,14 @@ public class ProductServiceTest {
     void testAddProduct_categoryNotFound() {
         ProductRequest request = ProductRequest.builder()
                 .productName("Laptop")
-                .price(1000)
-                .category(Category.builder().categoryId(1L).build())
+                .price(1000.0)
+                .categoryRequest(CategoryRequest.builder().categoryName("Electronics").build())
                 .build();
 
-        when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
+        when(categoryRepository.findByCategoryName("Electronics")).thenReturn(Optional.empty());
 
         assertThrows(CategoryNotFoundException.class, () -> productService.addProduct(request));
-        verify(categoryRepository, times(1)).findById(1L);
+        verify(categoryRepository, times(1)).findByCategoryName("Electronics");
         verifyNoInteractions(productRepository);
     }
 
@@ -91,17 +93,17 @@ public class ProductServiceTest {
     void testAddProduct_throwsDatabaseOperationException() {
         ProductRequest request = ProductRequest.builder()
                 .productName("Laptop")
-                .price(1000)
-                .category(Category.builder().categoryId(1L).build())
+                .price(1000.0)
+                .categoryRequest(CategoryRequest.builder().categoryName("Electronics").build())
                 .build();
 
         Category category = Category.builder().categoryId(1L).categoryName("Electronics").build();
 
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        when(categoryRepository.findByCategoryName("Electronics")).thenReturn(Optional.of(category));
         when(productRepository.save(any(Product.class))).thenThrow(new RuntimeException("Database error"));
 
         assertThrows(DatabaseOperationException.class, () -> productService.addProduct(request));
-        verify(categoryRepository, times(1)).findById(1L);
+        verify(categoryRepository, times(1)).findByCategoryName("Electronics");
         verify(productRepository, times(1)).save(any(Product.class));
     }
 }

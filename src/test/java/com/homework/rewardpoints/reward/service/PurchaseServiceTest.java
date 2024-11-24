@@ -3,14 +3,12 @@ import com.homework.rewardpoints.reward.dto.request.PurchaseRequest;
 import com.homework.rewardpoints.reward.dto.response.PurchaseResponse;
 import com.homework.rewardpoints.reward.exception.DatabaseOperationException;
 import com.homework.rewardpoints.reward.exception.customer.CustomerNotFoundException;
-import com.homework.rewardpoints.reward.exception.product.ProductNotFoundException;
 import com.homework.rewardpoints.reward.model.*;
 import com.homework.rewardpoints.reward.repository.CustomerRepository;
 import com.homework.rewardpoints.reward.repository.ProductRepository;
 import com.homework.rewardpoints.reward.repository.PurchaseRepository;
-import com.homework.rewardpoints.reward.service.utility.RewardPointsCalculatorService;
-import com.homework.rewardpoints.reward.service.utility.TotalCartValueCalculatorService;
-import lombok.RequiredArgsConstructor;
+import com.homework.rewardpoints.reward.service.utility.foeachpurchase.RewardPointsCalculatorService;
+import com.homework.rewardpoints.reward.service.utility.foeachpurchase.TotalCartValueCalculatorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -53,7 +51,7 @@ public class PurchaseServiceTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        products = Arrays.asList(Product.builder().productName("product1").productId(1L).price(100).category(Category.builder().categoryName("Electronics").build()).build(),Product.builder().productName("product2").productId(2L).price(200).category(Category.builder().categoryName("Clothing").build()).build());
+        products = Arrays.asList(Product.builder().productName("product1").productId(1L).price(100.0).category(Category.builder().categoryName("Electronics").build()).build(),Product.builder().productName("product2").productId(2L).price(200.0).category(Category.builder().categoryName("Clothing").build()).build());
         customer = Customer.builder().firstName("John").lastName("Doe").customerId(1L).email("johndoe@email").contact("0099887665").build();
         purchaseRequest = PurchaseRequest.builder().customer(customer).products(products).purchaseTime(LocalDateTime.parse("2024-10-15T12:00:00")).build();
 

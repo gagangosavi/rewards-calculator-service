@@ -25,7 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     public ProductResponse addProduct(ProductRequest productRequest){
-        Category category = categoryRepository.findById(productRequest.getCategory().getCategoryId()).orElseThrow(() ->new CategoryNotFoundException("No such category"));
+        Category category = categoryRepository.findByCategoryName(productRequest.getCategoryRequest().getCategoryName()).orElseThrow(() ->new CategoryNotFoundException("No such category"));
         if(productRequest.getPrice() < 0.0){
             throw new InvalidProductRequestException("Price cannot be negative");
         }
@@ -55,7 +55,7 @@ public class ProductService {
     public Set<ProductResponse> addProductsInBulk(List<ProductRequest> productRequests){
         Set<Product> products = new HashSet<>();
         for(ProductRequest productRequest : productRequests){
-            Category category = categoryRepository.findById(productRequest.getCategory().getCategoryId()).orElseThrow(() ->new CategoryNotFoundException("No such category"));
+            Category category = categoryRepository.findByCategoryName(productRequest.getCategoryRequest().getCategoryName()).orElseThrow(() ->new CategoryNotFoundException("No such category"));
             if(productRequest.getPrice() < 0.0){
                 throw new InvalidProductRequestException("Price cannot be negative");
             }

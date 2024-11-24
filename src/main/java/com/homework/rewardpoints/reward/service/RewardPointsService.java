@@ -1,5 +1,6 @@
 package com.homework.rewardpoints.reward.service;
 
+import com.homework.rewardpoints.reward.dto.request.CustomersAndMonthsRequest;
 import com.homework.rewardpoints.reward.dto.request.TransactionRequest;
 import com.homework.rewardpoints.reward.dto.response.RewardsSummaryResponse;
 import com.homework.rewardpoints.reward.model.Customer;
@@ -8,6 +9,7 @@ import com.homework.rewardpoints.reward.model.RewardPoints;
 import com.homework.rewardpoints.reward.repository.CustomerRepository;
 import com.homework.rewardpoints.reward.repository.PurchaseRepository;
 import com.homework.rewardpoints.reward.repository.RewardPointsRepository;
+import com.homework.rewardpoints.reward.service.utility.monthlyrewards.MonthlyRewardsCalculatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class RewardPointsService {
     private final RewardPointsRepository rewardPointsRepository;
     private final CustomerRepository customerRepository;
     private final PurchaseRepository purchaseRepository;
+    private final MonthlyRewardsCalculatorService monthlyRewardsCalculatorService;
 
     public void addRewardPoints(RewardPoints rewardPoints){
         rewardPointsRepository.save(rewardPoints);
@@ -79,5 +82,24 @@ public class RewardPointsService {
         }
 
         return rewardsSummaryResponses;
+    }
+
+    public List<RewardsSummaryResponse> getThreeMonthsRewardsFoAllCustomers(){
+        List<Customer> customers = customerRepository.findAll();
+        return monthlyRewardsCalculatorService.getThreeMonthlyRewardsByCustomers(customers);
+    }
+
+    public List<RewardsSummaryResponse> getThreeMonthsRewardsForGivenCustomers(List<Long> customerIds){
+        List<Customer> customers = customerRepository.findAllById(customerIds);
+        return monthlyRewardsCalculatorService.getThreeMonthlyRewardsByCustomers(customers);
+    }
+
+    public List<RewardsSummaryResponse> getRewardsForGivenMonthsForAllCustomers(List<Month> months){
+        List<Customer> customers = customerRepository.findAll();
+        return monthlyRewardsCalculatorService.getRewardsForGivenMonthsForAllCustomers(months);
+    }
+
+    public List<RewardsSummaryResponse> getRewardsForGivenCustomersForGivenMonths(CustomersAndMonthsRequest customersAndMonthsRequest){
+        return monthlyRewardsCalculatorService.getRewardsForGivenCustomersForGivenMonths(customersAndMonthsRequest);
     }
 }

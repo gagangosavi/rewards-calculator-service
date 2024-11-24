@@ -1,4 +1,4 @@
-package com.homework.rewardpoints.reward.service.utility;
+package com.homework.rewardpoints.reward.service.utility.foeachpurchase;
 
 import org.springframework.stereotype.Service;
 
