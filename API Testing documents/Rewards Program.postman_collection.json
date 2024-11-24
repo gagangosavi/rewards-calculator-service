@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "3785dc5b-6e50-4ac6-9e73-9f73a810318c",
+		"name": "Rewards Program",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25448844"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Add category",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get all categories",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add in Bulk",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Add Customer",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"firstName\": \"John\",\r\n        \"lastName\": \"Doe\",\r\n        \"email\": \"johndoeemail\",\r\n        \"contact\": \"88839\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/customer/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"customer",
+										"add"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 21:16:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"messages\": {\n        \"contact\": \"Please provide a valid contact\",\n        \"email\": \"Please provide a valid email\"\n    },\n    \"error\": \"Validation failure\",\n    \"status\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Customers",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add in Bulk",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n   \r\n    \r\n    {\r\n        \r\n        \"firstName\": \"Harry\",\r\n        \"lastName\": \"Potter\",\r\n        \"email\": \"notamuggle@email.com\",\r\n        \"contact\": \"8889990006\"\r\n    },\r\n    {\r\n        \"firstName\": \"James\",\r\n        \"lastName\": \"Bond\",\r\n        \"email\": \"bond@email.com\",\r\n        \"contact\": \"0070070070\"\r\n        \r\n    },\r\n    {\r\n        \r\n        \"firstName\": \"Thor\",\r\n        \"lastName\": \"Odin\",\r\n        \"email\": \"thunder@email.com\",\r\n        \"contact\": \"4446667779\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/customer/bulk-add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"customer",
+										"bulk-add"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 21:22:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"firstName\": \"Harry\",\n        \"lastName\": \"Potter\",\n        \"email\": \"notamuggle@email.com\",\n        \"contact\": \"8889990006\",\n        \"totalRewardPoints\": 0\n    },\n    {\n        \"firstName\": \"Thor\",\n        \"lastName\": \"Odin\",\n        \"email\": \"thunder@email.com\",\n        \"contact\": \"4446667779\",\n        \"totalRewardPoints\": 0\n    },\n    {\n        \"firstName\": \"James\",\n        \"lastName\": \"Bond\",\n        \"email\": \"bond@email.com\",\n        \"contact\": \"0070070070\",\n        \"totalRewardPoints\": 0\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add in Bulk",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase",
+			"item": [
+				{
+					"name": "Make Purchase",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All purchases",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rewards",
+			"item": [
+				{
+					"name": "Get 3 months Summary",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get summary for Given Months",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Summary for given customer for given months",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get 3 months summary for given Customers",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
