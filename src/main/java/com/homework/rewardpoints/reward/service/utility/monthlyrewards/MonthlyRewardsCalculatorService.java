@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +31,10 @@ public class MonthlyRewardsCalculatorService {
         List<Purchase> purchases = purchaseRepository.findByCustomerIdsInPurchaseTimeBetween(customerIds, startDate, endDate);
         //create a list of last 3 months
         List<Month> months = List.of(endDate.getMonth(), endDate.minusMonths(1).getMonth(), endDate.minusMonths(2).getMonth());
-        return generateRewardsSummaryResponse.generateRewardsSummaryResponseForGivenCustomersAndPurchases(customers, months, purchases);
+
+        //Pre-processing the customer to purchase relationship for faster access in creating monthly rewards map
+        Map<Long,List<Purchase>> customerToPurchasesMap = purchases.stream().collect(Collectors.groupingBy(purchase -> purchase.getCustomer().getCustomerId()));
+        return generateRewardsSummaryResponse.generateRewardsSummaryResponseForGivenCustomersAndPurchases(customers, months, customerToPurchasesMap);
     }
 
     public List<RewardsSummaryResponse> getRewardsForGivenMonthsForAllCustomers(List<Month> months){
@@ -43,7 +47,10 @@ public class MonthlyRewardsCalculatorService {
 
         List<Customer> customers = customerRepository.findAllById(customerIds);
 
-        return generateRewardsSummaryResponse.generateRewardsSummaryResponseForGivenCustomersAndPurchases(customers,months,purchases);
+        //Pre-processing the customer to purchase relationship for faster access in creating monthly rewards map
+        Map<Long,List<Purchase>> customerToPurchasesMap = purchases.stream().collect(Collectors.groupingBy(purchase -> purchase.getCustomer().getCustomerId()));
+
+        return generateRewardsSummaryResponse.generateRewardsSummaryResponseForGivenCustomersAndPurchases(customers,months,customerToPurchasesMap);
 
     }
 
@@ -55,6 +62,9 @@ public class MonthlyRewardsCalculatorService {
 
         List<Purchase> purchases = purchaseRepository.findAllByMonths(monthNumbers);
 
-        return generateRewardsSummaryResponse.generateRewardsSummaryResponseForGivenCustomersAndPurchases(customers,customersAndMonthsRequest.getMonths(),purchases);
+        //Pre-processing the customer to purchase relationship for faster access in creating monthly rewards map
+        Map<Long,List<Purchase>> customerToPurchasesMap = purchases.stream().collect(Collectors.groupingBy(purchase -> purchase.getCustomer().getCustomerId()));
+
+        return generateRewardsSummaryResponse.generateRewardsSummaryResponseForGivenCustomersAndPurchases(customers,customersAndMonthsRequest.getMonths(),customerToPurchasesMap);
     }
 }

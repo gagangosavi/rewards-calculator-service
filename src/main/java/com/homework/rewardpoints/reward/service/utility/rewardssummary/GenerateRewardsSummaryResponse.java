@@ -6,7 +6,6 @@ import com.homework.rewardpoints.reward.model.Purchase;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,11 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class GenerateRewardsSummaryResponse {
 
-    public List<RewardsSummaryResponse> generateRewardsSummaryResponseForGivenCustomersAndPurchases(List<Customer> customers, List<Month> months, List<Purchase> purchases){
+    public List<RewardsSummaryResponse> generateRewardsSummaryResponseForGivenCustomersAndPurchases(List<Customer> customers, List<Month> months, Map<Long, List<Purchase>> customerToPurchasesMap){
         return customers.stream().map(customer -> {
-
-            //Group purchases by customerId
-            Map<Long,List<Purchase>> customerToPurchasesMap = purchases.stream().collect(Collectors.groupingBy(purchase -> purchase.getCustomer().getCustomerId()));
 
             //gets all purchases made by the customer
             List<Purchase> customerPurchases = customerToPurchasesMap.getOrDefault(customer.getCustomerId(),List.of());
