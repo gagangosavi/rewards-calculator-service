@@ -2,7 +2,7 @@
 The Reward Points System is a Spring Boot-based application designed to manage purchases and reward points for customers. It includes exception handling, unit testing.
 
 ## Flow Diagram
-[a relative link](flow-diagram)
+[Flow Diagram](flow-diagram)
 
 # Features
 **Customer Management**: Add and fetch customer details.
